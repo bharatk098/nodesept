@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Entry App</title>
+</head>
+<body>
+  <h1>Data Entry App</h1>
+  <form action="/add-entry" method="POST">
+    <label for="entry">Enter Data:</label>
+    <input type="text" id="entry" name="entry" required>
+    <button type="submit">Submit</button>
+  </form>
+  <h2>Entries:</h2>
+  <ul id="entry-list"></ul>
+  <script>
+    async function fetchEntries() {
+      const response = await fetch('/entries');
+      const entries = await response.json();
+      const entryList = document.getElementById('entry-list');
+      entryList.innerHTML = entries.map(entry => `<li>${entry}</li>`).join('');
+    }
+    fetchEntries();
+  </script>
+</body>
+</html>
